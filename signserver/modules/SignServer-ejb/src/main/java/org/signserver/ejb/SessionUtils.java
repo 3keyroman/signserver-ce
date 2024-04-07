@@ -20,14 +20,14 @@ import org.signserver.ejb.worker.impl.WorkerWithComponents;
 
 /**
  * Utility functions for session beans.
- * 
+ *
  * @author Marcus Lundblad
  * @version $Id$
  */
 public class SessionUtils {
     /**
      * Checks if a process request should be run inside a transaction.
-     * 
+     *
      * @param session
      * @param wi
      * @return true if the request needs a transaction
@@ -39,7 +39,7 @@ public class SessionUtils {
             final PreloadedWorkerConfig pwc = worker.getPreloadedConfig();
 
             return !worker.getArchivers().isEmpty() ||
-                   !pwc.isDisableKeyUsageCounter() || pwc.isKeyUsageLimitSpecified();
+                    !pwc.isDisableKeyUsageCounter() || pwc.isKeyUsageLimitSpecified() || pwc.isProcessInTransaction();
         } catch (NoSuchWorkerException e) {
             return false;
         }

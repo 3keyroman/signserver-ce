@@ -17,6 +17,7 @@ import java.util.Properties;
 import org.signserver.common.SignServerConstants;
 import static org.signserver.common.SignServerConstants.DISABLED;
 import static org.signserver.common.SignServerConstants.DISABLEKEYUSAGECOUNTER;
+import static org.signserver.common.SignServerConstants.PROCESSINTRANSACTION;
 import org.signserver.common.WorkerConfig;
 import static org.signserver.common.util.PropertiesConstants.NAME;
 
@@ -27,17 +28,19 @@ import static org.signserver.common.util.PropertiesConstants.NAME;
  * @version $Id$
  */
 public class PreloadedWorkerConfig {
-    
+
     private final String name;
     private final boolean disabled;
-    
+
     private final boolean disableKeyUsageCounter;
     private final long keyUsageLimit;
     private final boolean keyUsageLimitSpecified;
-    
+
     private final boolean checkCertValidity;
     private final boolean checkPrivateKeyValidity;
     private final int minRemainingCertValidity;
+
+    private final boolean processInTransaction;
 
     /**
      * Parse and construct the worker configuration.
@@ -76,6 +79,8 @@ public class PreloadedWorkerConfig {
             minRemainingCertValidityValue = 0;
         }
         this.minRemainingCertValidity = minRemainingCertValidityValue;
+
+        this.processInTransaction = Boolean.valueOf(config.getProperty(SignServerConstants.PROCESSINTRANSACTION, "false"));
     }
 
     public String getName() {
@@ -109,5 +114,8 @@ public class PreloadedWorkerConfig {
     public int getMinRemainingCertValidity() {
         return minRemainingCertValidity;
     }
-    
+
+    public boolean isProcessInTransaction() {
+        return processInTransaction;
+    }
 }
